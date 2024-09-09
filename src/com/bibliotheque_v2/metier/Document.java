@@ -24,6 +24,7 @@ public abstract class Document {
         this.reserverId = reserverId;
         
     }
+    
     // Getters
     public int getId() {
         return id;
@@ -90,4 +91,10 @@ public abstract class Document {
     public void setReserverId(Integer reserverId) {
         this.reserverId = reserverId;
     }
+    
+    public abstract void emprunter(Utilisateur utilisateur);
+    public abstract void retourner();
+    public abstract void reserver(Utilisateur utilisateur);
+    public abstract void annulerReservation();
+
 }
