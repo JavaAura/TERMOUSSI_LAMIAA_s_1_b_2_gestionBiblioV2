@@ -1,22 +1,21 @@
-package com.bibliothequeV2.database;
+package com.bibliotheque_v2.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DbConnection  {
-    private static DbConnection instance; 
-    private Connection connection; 
-    
+public class DbConnection {
+
+    private static DbConnection instance;
+    private Connection connection;
+
     private static final String URL = "jdbc:postgresql://localhost:5432/biblio";
-    private static final String USER = "postgres"; 
-    private static final String PASSWORD = "lamiaa"; 
-  
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "lamiaa";
+
     private DbConnection() {
         try {
-            
             Class.forName("org.postgresql.Driver");
-          
             this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Connexion à la base de données réussie !");
         } catch (ClassNotFoundException e) {
@@ -26,6 +25,7 @@ public class DbConnection  {
         }
     }
 
+  
     public static DbConnection getInstance() {
         if (instance == null) {
             instance = new DbConnection();
@@ -36,6 +36,7 @@ public class DbConnection  {
     public Connection getConnection() {
         return connection;
     }
+
 
     public void closeConnection() {
         if (connection != null) {
