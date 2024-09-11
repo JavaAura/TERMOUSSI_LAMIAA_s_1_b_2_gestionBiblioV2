@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import com.bibliotheque_v2.dao.MagazineDAO;
 import com.bibliotheque_v2.dao.MagazineDAOImpl;
+import com.bibliotheque_v2.dao.TheseUniversitaireDAO;
+import com.bibliotheque_v2.dao.TheseUniversitaireDAOmpl;
 import com.bibliotheque_v2.dao.JournalScientifiqueDAO;
 import com.bibliotheque_v2.dao.JournalScientifiqueDAOImpl;
 import com.bibliotheque_v2.dao.LivreDAO;
@@ -130,8 +132,8 @@ public class ConsoleUI {
 	            	createMagazineUI(titre, auteur, datePub, nbrPages);
 	            case "journalscientifique":
 	            	createJournalScientifiqueUI(titre, auteur, datePub, nbrPages);
-	            	
-	            	
+	            case "theseuniversitaire":
+	            	createTheseUniversitairUI(titre, auteur, datePub, nbrPages);
 	            	
 	            
 	            default:
@@ -139,6 +141,23 @@ public class ConsoleUI {
 	                return;
 	        }
 	    }
+	    
+	    private void createTheseUniversitairUI(String titre,String auteur, LocalDate datePub,int nbrPages) {
+	    	System.out.println("=== Ajouter une These Universitaire ===");
+	    	System.out.print("Universite : ");
+	    	String uni = scanner.nextLine();
+	    	System.out.print("Domaine : ");
+	    	String dom = scanner.nextLine();
+	    	TheseUniversitaire these = new TheseUniversitaire(titre, auteur, datePub, nbrPages, "theseuniversitaire", 1,null,null,uni,dom);
+	     	 try {
+	     		TheseUniversitaireDAO theseDAO= new TheseUniversitaireDAOmpl();
+	     		theseDAO.createTheseUniversitaire(these);
+				  System.out.println("these universitaire ajouté avec succès.");
+			  } catch ( SQLException e) {
+	              System.err.println("Erreur lors de l'ajout du these universitaire: " + e.getMessage());
+	          }
+	    }
+	    
 	    private void createJournalScientifiqueUI(String titre,String auteur, LocalDate datePub,int nbrPages) {
 	    	System.out.println("=== Ajouter un journal scientifique ===");
 	    	System.out.print("Domaine recherche : ");
