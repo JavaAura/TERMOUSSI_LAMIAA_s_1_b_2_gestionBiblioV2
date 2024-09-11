@@ -13,7 +13,7 @@ public abstract class Document {
     private  int bibliothequeId;
     private Integer reserverId; 
 
-    public Document(String titre, String auteur, LocalDate datePub, int nbrPages, String type,int bibliothequeId ,int borrowerId,int reserverId) {
+    public Document(String titre, String auteur, LocalDate datePub, int nbrPages, String type,int bibliothequeId ,Integer borrowerId,Integer reserverId) {
         this.titre = titre;
         this.auteur = auteur;
         this.datePub = datePub;
@@ -48,6 +48,10 @@ public abstract class Document {
 
     public String getType() {
         return type;
+    }
+    
+    public int getBibliothequeId() {
+        return bibliothequeId;
     }
     
     public Integer getBorrowerId() {
