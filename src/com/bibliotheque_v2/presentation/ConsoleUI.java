@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import com.bibliotheque_v2.dao.MagazineDAO;
 import com.bibliotheque_v2.dao.MagazineDAOImpl;
+import com.bibliotheque_v2.dao.JournalScientifiqueDAO;
+import com.bibliotheque_v2.dao.JournalScientifiqueDAOImpl;
 import com.bibliotheque_v2.dao.LivreDAO;
 import com.bibliotheque_v2.dao.LivreDAOImpl;
 import com.bibliotheque_v2.metier.*;
@@ -120,19 +122,36 @@ public class ConsoleUI {
 	        int nbrPages = scanner.nextInt();
 	        scanner.nextLine();  
 
-	        //Document document;
 	        switch (type.toLowerCase()) {
 	            case "livre":
 	            	createLivreUI(titre, auteur, datePub, nbrPages);
 	                break;
 	            case "magazine":
 	            	createMagazineUI(titre, auteur, datePub, nbrPages);
+	            case "journalscientifique":
+	            	createJournalScientifiqueUI(titre, auteur, datePub, nbrPages);
+	            	
+	            	
+	            	
+	            
 	            default:
 	                System.out.println("Type de document invalide.");
 	                return;
 	        }
 	    }
-
+	    private void createJournalScientifiqueUI(String titre,String auteur, LocalDate datePub,int nbrPages) {
+	    	System.out.println("=== Ajouter un journal scientifique ===");
+	    	System.out.print("Domaine recherche : ");
+	    	String dom_rech = scanner.nextLine();
+	    	JournalScientifique journal=new JournalScientifique(titre, auteur, datePub, nbrPages, "journalscientifique", 1,null,null,dom_rech);
+	    	 try {
+				  JournalScientifiqueDAO journalDAO= new JournalScientifiqueDAOImpl();
+				  journalDAO.createJournalScientifique(journal);
+				  System.out.println("journal scientifique ajouté avec succès.");
+			  } catch ( SQLException e) {
+	              System.err.println("Erreur lors de l'ajout du journal scientifique: " + e.getMessage());
+	          }
+	    }
 	  private void createMagazineUI(String titre,String auteur, LocalDate datePub,int nbrPages) {
 		  System.out.println("=== Ajouter un magazine ===");
 		  System.out.print("Numero: ");
@@ -143,7 +162,7 @@ public class ConsoleUI {
 			  magazineDAO.createMagazine(magazine);
 			  System.out.println("Magazine ajouté avec succès.");
 		  } catch ( SQLException e) {
-              System.err.println("Erreur lors de l'ajout du livre: " + e.getMessage());
+              System.err.println("Erreur lors de l'ajout du magazine: " + e.getMessage());
           }
 	  }
 	  
