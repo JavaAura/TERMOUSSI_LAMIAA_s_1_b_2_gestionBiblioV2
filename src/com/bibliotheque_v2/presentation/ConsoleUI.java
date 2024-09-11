@@ -4,7 +4,8 @@ import java.util.Scanner;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
+import com.bibliotheque_v2.dao.MagazineDAO;
+import com.bibliotheque_v2.dao.MagazineDAOImpl;
 import com.bibliotheque_v2.dao.LivreDAO;
 import com.bibliotheque_v2.dao.LivreDAOImpl;
 import com.bibliotheque_v2.metier.*;
@@ -122,25 +123,43 @@ public class ConsoleUI {
 	        //Document document;
 	        switch (type.toLowerCase()) {
 	            case "livre":
-	                System.out.print("ISBN: ");
-	                String isbn = scanner.nextLine();
-	                Livre livre = new Livre(titre, auteur, datePub, nbrPages, "livre", 1,null,null, isbn);
-	                try {
-	                    LivreDAO livreDAO = new LivreDAOImpl();
-	                    livreDAO.createLivre(livre); 
-	                    System.out.println("Livre ajouté avec succès.");
-	                } catch (SQLException e) {
-	                    System.err.println("Erreur lors de l'ajout du livre: " + e.getMessage());
-	                }
+	            	createLivreUI(titre, auteur, datePub, nbrPages);
 	                break;
-
-	           
+	            case "magazine":
+	            	createMagazineUI(titre, auteur, datePub, nbrPages);
 	            default:
 	                System.out.println("Type de document invalide.");
 	                return;
 	        }
 	    }
 
+	  private void createMagazineUI(String titre,String auteur, LocalDate datePub,int nbrPages) {
+		  System.out.println("=== Ajouter un magazine ===");
+		  System.out.print("Numero: ");
+		  String num = scanner.nextLine();
+		  Magazine magazine=new Magazine(titre, auteur, datePub, nbrPages, "magazine", 1,null,null,num);
+		  try {
+			  MagazineDAO magazineDAO= new MagazineDAOImpl();
+			  magazineDAO.createMagazine(magazine);
+			  System.out.println("Magazine ajouté avec succès.");
+		  } catch ( SQLException e) {
+              System.err.println("Erreur lors de l'ajout du livre: " + e.getMessage());
+          }
+	  }
+	  
+	  private void createLivreUI(String titre,String auteur, LocalDate datePub,int nbrPages) {
+		  System.out.println("=== Ajouter un Livre ===");
+		  System.out.print("ISBN: ");
+		  String isbn = scanner.nextLine();
+		  Livre livre = new Livre(titre, auteur, datePub, nbrPages, "livre", 1,null,null, isbn);
+		    try {
+                LivreDAO livreDAO = new LivreDAOImpl();
+                livreDAO.createLivre(livre); 
+                System.out.println("Livre ajouté avec succès.");
+            } catch (SQLException e) {
+                System.err.println("Erreur lors de l'ajout du livre: " + e.getMessage());
+            }
+	  }
 	  
 	    private void manageUsers() {
 	        System.out.println("~~~~ Gestion des Utilisateurs ~~~~");

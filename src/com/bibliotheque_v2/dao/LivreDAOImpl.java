@@ -14,7 +14,7 @@ public class LivreDAOImpl implements LivreDAO  {
 	
 	 private Connection connection;
 
-	    public LivreDAOImpl() {
+	   public LivreDAOImpl() {
 	        this.connection = DbConnection.getInstance().getConnection();
 	    }
 
@@ -64,10 +64,10 @@ public class LivreDAOImpl implements LivreDAO  {
 	                Livre livre = new Livre(
 	                    rs.getString("titre"),
 	                    rs.getString("auteur"),
-	                    rs.getDate("datePub").toLocalDate(),
-	                    rs.getInt("nbrPages"),
+	                    rs.getDate("datepub").toLocalDate(),
+	                    rs.getInt("nbrpages"),
 	                    rs.getString("type"),
-	                    rs.getInt("bibliothequeId"),
+	                    rs.getInt("bibliotheque_id"),
 	                    null, // borrowerId
 	                    null, // reserverId
 	                    rs.getString("isbn")
