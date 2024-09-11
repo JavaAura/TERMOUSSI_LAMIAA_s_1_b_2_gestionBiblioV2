@@ -110,12 +110,17 @@ public class ConsoleUI {
 	    	         switch (type.toLowerCase()) {
 	    	         case "livre":
 	    	        	 deleteLivreUI(documentId);
+	    	         case "magazine":
+	    	        	 deleteMagazineUI(documentId);
 	    	         }
+	    	  
+	    	        	 
 	    	    
 	    	    } catch (SQLException e) {
 	    	        System.err.println("Erreur lors de la suppression du document: " + e.getMessage());
 	    	    }
 	    }
+	    
 	    private void deleteLivreUI(int documentId) {
 	    	try {
 	            LivreDAO livreDAO = new LivreDAOImpl();
@@ -125,6 +130,17 @@ public class ConsoleUI {
 	            System.err.println("Erreur lors de la suppression du livre: " + e.getMessage());
 	        }
 	    }
+	    
+	    private void deleteMagazineUI(int documentId) {
+	    	try {
+	            MagazineDAO magazineDAO = new MagazineDAOImpl();
+	            magazineDAO.deleteMagazine(documentId);
+	            System.out.println("Magazine supprimé avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la suppression du magazine: " + e.getMessage());
+	        }
+	    }
+	    
 	    private void displayDocuments() {}
 	    
 	    private void createDocument() {

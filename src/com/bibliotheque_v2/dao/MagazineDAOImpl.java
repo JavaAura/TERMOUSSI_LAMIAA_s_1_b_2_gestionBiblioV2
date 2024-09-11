@@ -46,7 +46,19 @@ public class MagazineDAOImpl implements MagazineDAO {
 
 	    @Override
 	    public void deleteMagazine(int magazineId) throws SQLException {
-	        //  delete logic
+	    	String sql = "DELETE FROM magazine WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, magazineId); 
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected > 0) {
+	                System.out.println("Magazine avec ID " + magazineId + " est supprimé avec succés.");
+	            } else {
+	                System.out.println("Aucun magazine trouvé avec ID " + magazineId + ".");
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error deleting magazine from database: " + e.getMessage());
+	            throw e;
+	        }
 	    }
 
 	    @Override
