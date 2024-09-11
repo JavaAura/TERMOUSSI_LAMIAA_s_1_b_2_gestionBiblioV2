@@ -112,6 +112,8 @@ public class ConsoleUI {
 	    	        	 deleteLivreUI(documentId);
 	    	         case "magazine":
 	    	        	 deleteMagazineUI(documentId);
+	    	         case "theseuniversitaire":
+	    	        	 deleteTheseUniversitaireUI(documentId);
 	    	         }
 	    	  
 	    	        	 
@@ -119,6 +121,16 @@ public class ConsoleUI {
 	    	    } catch (SQLException e) {
 	    	        System.err.println("Erreur lors de la suppression du document: " + e.getMessage());
 	    	    }
+	    }
+	    
+	    private void deleteTheseUniversitaireUI(int documentId) {
+	    	try {
+	            TheseUniversitaireDAO theseDAO = new TheseUniversitaireDAOmpl();
+	            theseDAO.deleteTheseUniversitaire(documentId);
+	            System.out.println("These universitaire supprimé avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la suppression du these universitaire: " + e.getMessage());
+	        }
 	    }
 	    
 	    private void deleteLivreUI(int documentId) {

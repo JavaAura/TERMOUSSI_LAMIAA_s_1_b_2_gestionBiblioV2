@@ -47,7 +47,19 @@ public class TheseUniversitaireDAOmpl implements TheseUniversitaireDAO {
 
 	    @Override
 	    public void deleteTheseUniversitaire(int theseId) throws SQLException {
-	        //  delete logic
+	    	String sql = "DELETE FROM these_universitaire WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, theseId); 
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected > 0) {
+	                System.out.println("these universitaire avec ID " + theseId + " est supprimé avec succés.");
+	            } else {
+	                System.out.println("Aucune these universitaire trouvé avec ID " + theseId + ".");
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error deleting these universitaire from database: " + e.getMessage());
+	            throw e;
+	        }
 	    }
 
 	    @Override
