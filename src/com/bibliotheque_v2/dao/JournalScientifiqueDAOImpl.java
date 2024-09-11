@@ -45,7 +45,19 @@ public class JournalScientifiqueDAOImpl implements JournalScientifiqueDAO {
 
 	    @Override
 	    public void deleteJournalScientifique(int journalId) throws SQLException {
-	        //  delete logic
+	    	String sql = "DELETE FROM journal_scientifique WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, journalId); 
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected > 0) {
+	                System.out.println("Journal scientifique avec ID " + journalId + " est supprimé avec succés.");
+	            } else {
+	                System.out.println("Aucun Journal scientifique trouvé avec ID " + journalId + ".");
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error deleting Journal scientifique from database: " + e.getMessage());
+	            throw e;
+	        }
 	    }
 
 	    @Override

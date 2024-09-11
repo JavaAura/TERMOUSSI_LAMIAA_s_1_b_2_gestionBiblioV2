@@ -114,6 +114,8 @@ public class ConsoleUI {
 	    	        	 deleteMagazineUI(documentId);
 	    	         case "theseuniversitaire":
 	    	        	 deleteTheseUniversitaireUI(documentId);
+	    	         case "journalscientifique":
+	    	        	 deleteJournalScientifiqueUI(documentId);
 	    	         }
 	    	  
 	    	        	 
@@ -121,6 +123,16 @@ public class ConsoleUI {
 	    	    } catch (SQLException e) {
 	    	        System.err.println("Erreur lors de la suppression du document: " + e.getMessage());
 	    	    }
+	    }
+	    
+	    private void deleteJournalScientifiqueUI(int documentId) {
+	    	try {
+	            JournalScientifiqueDAO theseDAO = new JournalScientifiqueDAOImpl();
+	            theseDAO.deleteJournalScientifique(documentId);
+	            System.out.println("Journal scientifique supprimé avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la suppression du Journal scientifique : " + e.getMessage());
+	        }
 	    }
 	    
 	    private void deleteTheseUniversitaireUI(int documentId) {
