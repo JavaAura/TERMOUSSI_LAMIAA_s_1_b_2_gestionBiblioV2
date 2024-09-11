@@ -45,7 +45,19 @@ public class LivreDAOImpl implements LivreDAO  {
 
 	    @Override
 	    public void deleteLivre(int livreId) throws SQLException {
-	        //  delete logic
+	    	String sql = "DELETE FROM livre WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, livreId); 
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected > 0) {
+	                System.out.println("Livre avec ID " + livreId + " est supprimé avec succés.");
+	            } else {
+	                System.out.println("Aucun livre trouvé avec ID " + livreId + ".");
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error deleting Livre from database: " + e.getMessage());
+	            throw e;
+	        }
 	    }
 
 	    @Override

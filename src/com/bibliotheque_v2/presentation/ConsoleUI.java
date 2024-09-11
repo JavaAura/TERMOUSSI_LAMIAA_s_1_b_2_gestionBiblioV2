@@ -12,6 +12,8 @@ import com.bibliotheque_v2.dao.JournalScientifiqueDAO;
 import com.bibliotheque_v2.dao.JournalScientifiqueDAOImpl;
 import com.bibliotheque_v2.dao.LivreDAO;
 import com.bibliotheque_v2.dao.LivreDAOImpl;
+import com.bibliotheque_v2.dao.DocumentDAOImpl;
+import com.bibliotheque_v2.dao.DocumentDAO;
 import com.bibliotheque_v2.metier.*;
 
 public class ConsoleUI {
@@ -94,7 +96,35 @@ public class ConsoleUI {
 	        }
 	   }
 	    private void updateDocument() {}
-	    private void deleteDocument() {}
+	    private void deleteDocument() {
+	    	 System.out.println("=== Supprimer un Document ===");
+
+	    	    System.out.print("Entrez l'ID du document à supprimer: ");
+	    	    int documentId = scanner.nextInt();
+	    	    scanner.nextLine();  
+
+	    	    try {
+	    	    	 DocumentDAO documentDAO = new DocumentDAOImpl();
+	    	         String type = documentDAO.getDocumentType(documentId);
+	    	        
+	    	         switch (type.toLowerCase()) {
+	    	         case "livre":
+	    	        	 deleteLivreUI(documentId);
+	    	         }
+	    	    
+	    	    } catch (SQLException e) {
+	    	        System.err.println("Erreur lors de la suppression du document: " + e.getMessage());
+	    	    }
+	    }
+	    private void deleteLivreUI(int documentId) {
+	    	try {
+	            LivreDAO livreDAO = new LivreDAOImpl();
+	            livreDAO.deleteLivre(documentId);
+	            System.out.println("Livre supprimé avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la suppression du livre: " + e.getMessage());
+	        }
+	    }
 	    private void displayDocuments() {}
 	    
 	    private void createDocument() {
@@ -135,7 +165,6 @@ public class ConsoleUI {
 	            case "theseuniversitaire":
 	            	createTheseUniversitairUI(titre, auteur, datePub, nbrPages);
 	            	
-	            
 	            default:
 	                System.out.println("Type de document invalide.");
 	                return;
