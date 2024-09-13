@@ -82,11 +82,7 @@ public class JournalScientifiqueDAOImpl implements JournalScientifiqueDAO {
 	        }
 	    }
 
-	    @Override
-	    public JournalScientifique findJournalScientifiqueById(int journalId) throws SQLException {
-	        //  find logic
-	        return null;
-	    }
+	   
 
 	    @Override
 	    public List<JournalScientifique> getAllJournauxScientifiques() throws SQLException {

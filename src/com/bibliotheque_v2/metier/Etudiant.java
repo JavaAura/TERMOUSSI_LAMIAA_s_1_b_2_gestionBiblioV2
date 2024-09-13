@@ -4,8 +4,8 @@ public class Etudiant extends Utilisateur {
 	
 	  private String numero;
 
-	    public Etudiant( String name, String email, String numero) {
-	        super( name, email, "etudiant");
+	    public Etudiant( String name, String email,String type, String numero) {
+	        super( name, email,type);
 	        this.numero = numero;
 	    }
 	    

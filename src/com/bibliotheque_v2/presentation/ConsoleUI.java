@@ -14,7 +14,9 @@ import com.bibliotheque_v2.dao.JournalScientifiqueDAOImpl;
 import com.bibliotheque_v2.dao.LivreDAO;
 import com.bibliotheque_v2.dao.LivreDAOImpl;
 import com.bibliotheque_v2.dao.DocumentDAOImpl;
+import com.bibliotheque_v2.dao.EtudiantDAOImpl;
 import com.bibliotheque_v2.dao.DocumentDAO;
+import com.bibliotheque_v2.dao.EtudiantDAO;
 import com.bibliotheque_v2.metier.*;
 
 public class ConsoleUI {
@@ -62,6 +64,93 @@ public class ConsoleUI {
 	                    System.out.println("Option invalide. Veuillez réessayer.");
 	            }
 	        }
+	    }
+	    
+	    private void manageUsers() {
+	        System.out.println("~~~~ Gestion des Utilisateurs ~~~~");
+	        System.out.println("1. Ajouter un utilisateur");
+	        System.out.println("2. Mettre à jour un utilisateur");
+	        System.out.println("3. Supprimer un utilisateur");
+	        System.out.println("4. Afficher tous les utilisateurs");
+	        System.out.println("5. Retour au menu principal");
+	        System.out.print("Choisissez une option: ");
+
+	        int choice = scanner.nextInt();
+	        scanner.nextLine();  
+
+	        switch (choice) {
+	            case 1:
+	                createUser();
+	                break;
+	            case 2:
+	                updateUser();
+	                break;
+	            case 3:
+	                deleteUser();
+	                break;
+	            case 4:
+	                displayAllUsers();
+	                break;
+	            case 5:
+	                // Retourne au menu principal
+	                break;
+	            default:
+	                System.out.println("Option invalide. Veuillez réessayer.");
+	        }
+	    }
+	    
+	    private void createUser() {
+	    	System.out.println("=== Ajouter un Utilisateur ===");
+
+	        System.out.print("Entrez le nom: ");
+	        String name = scanner.nextLine();
+
+	        System.out.print("Entrez l'email: ");
+	        String email = scanner.nextLine();
+
+	        System.out.print("Entrez le type (etudiant/professeur): ");
+	        String type = scanner.nextLine();
+
+	        switch (type.toLowerCase()) {
+	        case "etudiant":
+	            createEtudiant(name, email);
+	            break;
+	        case "professeur":
+	            createProfesseur(name, email);
+	            break;
+	        default:
+	            System.out.println("Type d'utilisateur inconnu.");
+	        }
+	    }
+	    
+	    private void createProfesseur(String name, String email) {
+			
+		}
+
+		private void createEtudiant(String name, String email) {
+			 System.out.print("Entrez le numéro de l'étudiant: ");
+			    String numero = scanner.nextLine();
+			    Etudiant etudiant = new Etudiant( name, email,"etudiant", numero); 
+
+			    try {
+			        EtudiantDAO etudiantDAO = new EtudiantDAOImpl();
+			        etudiantDAO.createEtudiant(etudiant);
+			        System.out.println("Étudiant créé avec succès.");
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors de la création de l'étudiant: " + e.getMessage());
+			    }
+		}
+
+		private void updateUser() {
+	    	
+	    }
+ 
+	    private void deleteUser() {
+ 	
+	    }
+ 
+	    private void displayAllUsers() {
+ 	
 	    }
 	    
 	    private void manageDocuments() {
@@ -436,20 +525,7 @@ public class ConsoleUI {
             }
 	  }
 	  
-	    private void manageUsers() {
-	        System.out.println("~~~~ Gestion des Utilisateurs ~~~~");
-	        System.out.println("1. Ajouter un utilisateur");
-	        System.out.println("2. Mettre à jour un utilisateur");
-	        System.out.println("3. Supprimer un utilisateur");
-	        System.out.println("4. Afficher tous les utilisateurs");
-	        System.out.println("5. Retour au menu principal");
-	        System.out.print("Choisissez une option: ");
-
-	        int choice = scanner.nextInt();
-	        scanner.nextLine();  
-
-	        // TODO:  la gestion des utilisateurs
-	    }
+	   
 
 	    private void manageborrows() {
 	        System.out.println("~~~~ Gestion des Emprunts ~~~~");

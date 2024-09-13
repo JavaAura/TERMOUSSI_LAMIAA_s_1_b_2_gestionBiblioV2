@@ -85,12 +85,6 @@ public class MagazineDAOImpl implements MagazineDAO {
 	    }
 
 	    @Override
-	    public Magazine findMagazineById(int magazineId) throws SQLException {
-	        //  find logic
-	        return null;
-	    }
-
-	    @Override
 	    public List<Magazine> getAllMagazines() throws SQLException {
 	        List<Magazine> magazines = new ArrayList<>();
 	        String sql = "SELECT * FROM magazine";

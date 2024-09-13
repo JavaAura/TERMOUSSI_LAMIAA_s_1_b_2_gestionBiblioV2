@@ -81,11 +81,7 @@ public class LivreDAOImpl implements LivreDAO  {
 	        }
 	    }
 
-	    @Override
-	    public Livre findLivreById(int livreId) throws SQLException {
-	        //  find logic
-	        return null;
-	    }
+	
 
 	    @Override
 	    public List<Livre> getAllLivres() throws SQLException {

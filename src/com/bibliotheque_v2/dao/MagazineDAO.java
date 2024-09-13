@@ -10,6 +10,5 @@ public interface MagazineDAO {
 	 void createMagazine(Magazine magazine) throws SQLException;
 	    void updateMagazine(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages, String nouveauNumero) throws SQLException;
 	    void deleteMagazine(int magazineId) throws SQLException;
-	    Magazine findMagazineById(int magazineId) throws SQLException;
 	    List<Magazine> getAllMagazines() throws SQLException;
 }

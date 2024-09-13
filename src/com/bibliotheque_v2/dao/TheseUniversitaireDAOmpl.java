@@ -85,11 +85,7 @@ public class TheseUniversitaireDAOmpl implements TheseUniversitaireDAO {
 	        }
 	    }
 
-	    @Override
-	    public TheseUniversitaire findTheseUniversitaireById(int theseId) throws SQLException {
-	        //  find logic
-	        return null;
-	    }
+	  
 
 	    @Override
 	    public List<TheseUniversitaire> getAllThesesUniversitaires() throws SQLException {
