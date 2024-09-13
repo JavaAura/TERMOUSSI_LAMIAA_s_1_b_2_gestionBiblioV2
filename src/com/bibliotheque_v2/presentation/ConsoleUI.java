@@ -106,18 +106,32 @@ public class ConsoleUI {
 	            DocumentDAO documentDAO = new DocumentDAOImpl();
 	            String type = documentDAO.getDocumentType(documentId);
 	            
+	            System.out.print("Entrez le nouveau titre: ");
+	            String nouveauTitre = scanner.nextLine();
+
+	            System.out.print("Entrez le nouvel auteur: ");
+	            String nouvelAuteur = scanner.nextLine();
+
+	            System.out.print("Entrez la nouvelle date de publication (format: yyyy-mm-dd): ");
+	            String newDatePubStr = scanner.nextLine();
+	            LocalDate nouvelleDatePub = LocalDate.parse(newDatePubStr);
+
+	            System.out.print("Entrez le nouveau nombre de pages: ");
+	            int nouveauNbrPages = scanner.nextInt();
+	            
+	            scanner.nextLine(); 
 	            switch (type.toLowerCase()) {
 	                case "livre":
-	                    updateLivreUI(documentId);
+	                    updateLivreUI(documentId,nouveauTitre,nouvelAuteur,nouvelleDatePub,nouveauNbrPages);
 	                    break;
 	                case "magazine":
-	                    updateMagazineUI(documentId);
+	                    updateMagazineUI(documentId,nouveauTitre,nouvelAuteur,nouvelleDatePub,nouveauNbrPages);
 	                    break;
 	                case "theseuniversitaire":
-	                    updateTheseUniversitaireUI(documentId);
+	                    updateTheseUniversitaireUI(documentId,nouveauTitre,nouvelAuteur,nouvelleDatePub,nouveauNbrPages);
 	                    break;
 	                case "journalscientifique":
-	                    updateJournalScientifiqueUI(documentId);
+	                    updateJournalScientifiqueUI(documentId,nouveauTitre,nouvelAuteur,nouvelleDatePub,nouveauNbrPages);
 	                    break;
 	                default:
 	                    System.out.println("Type de document inconnu: " + type);
@@ -141,35 +155,25 @@ public class ConsoleUI {
 	    	         switch (type.toLowerCase()) {
 	    	         case "livre":
 	    	        	 deleteLivreUI(documentId);
+	    	        	 break;
 	    	         case "magazine":
 	    	        	 deleteMagazineUI(documentId);
+	    	        	 break;
 	    	         case "theseuniversitaire":
 	    	        	 deleteTheseUniversitaireUI(documentId);
+	    	        	 break;
 	    	         case "journalscientifique":
 	    	        	 deleteJournalScientifiqueUI(documentId);
+	    	        	 break;
 	    	         }
 	    	    } catch (SQLException e) {
 	    	        System.err.println("Erreur lors de la suppression du document: " + e.getMessage());
 	    	    }
 	    }
 	    
-	    private void updateLivreUI(int documentId) {
+	    private void updateLivreUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
 	    	try {
 	            LivreDAO livreDAO = new LivreDAOImpl();
-
-	            System.out.print("Entrez le nouveau titre: ");
-	            String nouveauTitre = scanner.nextLine();
-
-	            System.out.print("Entrez le nouvel auteur: ");
-	            String nouvelAuteur = scanner.nextLine();
-
-	            System.out.print("Entrez la nouvelle date de publication (format: yyyy-mm-dd): ");
-	            String newDatePubStr = scanner.nextLine();
-	            LocalDate nouvelleDatePub = LocalDate.parse(newDatePubStr);
-
-	            System.out.print("Entrez le nouveau nombre de pages: ");
-	            int nouveauNbrPages = scanner.nextInt();
-	            scanner.nextLine();  
 
 	            System.out.print("Entrez le nouvel ISBN: ");
 	            String nouvelIsbn = scanner.nextLine();
@@ -181,16 +185,51 @@ public class ConsoleUI {
 	        }
 	    }
 	    
-	    private void updateMagazineUI(int documentId) {
-	    	
+	    private void updateMagazineUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
+	    	try {
+	            MagazineDAO magazineDAO = new MagazineDAOImpl();
+
+	            System.out.print("Entrez le nouveau numéro du magazine: ");
+	            String nouveauNumero = scanner.nextLine();
+
+	            magazineDAO.updateMagazine(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouveauNumero);
+	            System.out.println("Magazine mis à jour avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la mise à jour du magazine: " + e.getMessage());
+	        }
 	    }
    
-   		private void updateTheseUniversitaireUI(int documentId) {
-   	
+   		private void updateTheseUniversitaireUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
+   		/* try {
+   	        TheseUniversitaireDAO theseDAO = new TheseUniversitaireDAOImpl();
+
+   	        System.out.print("Entrez la nouvelle université: ");
+   	        String nouvelleUniversite = scanner.nextLine();
+
+   	        System.out.print("Entrez le nouveau domaine: ");
+   	        String nouveauDomaine = scanner.nextLine();
+
+   	        // Appeler la méthode de mise à jour dans TheseUniversitaireDAO
+   	        theseDAO.updateTheseUniversitaire(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouvelleUniversite, nouveauDomaine);
+   	        System.out.println("Thèse universitaire mise à jour avec succès.");
+   	    } catch (SQLException e) {
+   	        System.err.println("Erreur lors de la mise à jour de la thèse universitaire: " + e.getMessage());
+   	    } */
    		}
    
-   		private void updateJournalScientifiqueUI(int documentId) {
-   	
+   		private void updateJournalScientifiqueUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
+   			/*try {
+   		        JournalScientifiqueDAO journalDAO = new JournalScientifiqueDAOImpl();
+
+   		        System.out.print("Entrez le nouveau domaine de recherche: ");
+   		        String nouveauDomaineRecherche = scanner.nextLine();
+
+   		        // Appeler la méthode de mise à jour dans JournalScientifiqueDAO
+   		        journalDAO.updateJournalScientifique(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouveauDomaineRecherche);
+   		        System.out.println("Journal scientifique mis à jour avec succès.");
+   		    } catch (SQLException e) {
+   		        System.err.println("Erreur lors de la mise à jour du journal scientifique: " + e.getMessage());
+   		    } */
    		}
 	    
 	    private void deleteJournalScientifiqueUI(int documentId) {

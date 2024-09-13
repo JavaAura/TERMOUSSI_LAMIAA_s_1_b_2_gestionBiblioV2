@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +41,31 @@ public class MagazineDAOImpl implements MagazineDAO {
 	    }
 
 	    @Override
-	    public void updateMagazine(Magazine magazine) throws SQLException {
-	        //  update logic
-	    }
+	    public void updateMagazine(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages, String nouveauNumero) throws SQLException {
+	    	 String updateQuery = "UPDATE magazine SET titre = ?, auteur = ?, datePub = ?, nbrPages = ?, numero = ? WHERE id = ?";
+
+	         try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+	             preparedStatement.setString(1, nouveauTitre);
+	             preparedStatement.setString(2, nouvelAuteur);
+	             preparedStatement.setObject(3, nouvelleDatePub); 
+	             preparedStatement.setInt(4, nouveauNbrPages);
+	             preparedStatement.setString(5, nouveauNumero);
+	             preparedStatement.setInt(6, documentId);
+
+	             int rowsUpdated = preparedStatement.executeUpdate();
+	             if (rowsUpdated > 0) {
+	                 System.out.println("Le magazine a été mis à jour avec succès.");
+	             } else {
+	                 System.out.println("Aucun magazine trouvé avec l'ID spécifié.");
+	             }
+
+	         } catch (SQLException e) {
+	             System.err.println("Erreur lors de la mise à jour du magazine: " + e.getMessage());
+	             throw e; 
+	         }
+	     }
+	    
 
 	    @Override
 	    public void deleteMagazine(int magazineId) throws SQLException {
