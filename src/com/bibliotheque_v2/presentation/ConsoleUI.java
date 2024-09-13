@@ -95,7 +95,38 @@ public class ConsoleUI {
 	            System.out.println("Option invalide. Veuillez réessayer.");
 	        }
 	   }
-	    private void updateDocument() {}
+	    private void updateDocument() {
+	        System.out.println("=== Mettre à Jour un Document ===");
+
+	        System.out.print("Entrez l'ID du document à mettre à jour: ");
+	        int documentId = scanner.nextInt();
+	        scanner.nextLine();  
+
+	        try {
+	            DocumentDAO documentDAO = new DocumentDAOImpl();
+	            String type = documentDAO.getDocumentType(documentId);
+	            
+	            switch (type.toLowerCase()) {
+	                case "livre":
+	                    updateLivreUI(documentId);
+	                    break;
+	                case "magazine":
+	                    updateMagazineUI(documentId);
+	                    break;
+	                case "theseuniversitaire":
+	                    updateTheseUniversitaireUI(documentId);
+	                    break;
+	                case "journalscientifique":
+	                    updateJournalScientifiqueUI(documentId);
+	                    break;
+	                default:
+	                    System.out.println("Type de document inconnu: " + type);
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la mise à jour du document: " + e.getMessage());
+	        }
+	    }
+	    
 	    private void deleteDocument() {
 	    	 System.out.println("=== Supprimer un Document ===");
 
@@ -117,13 +148,50 @@ public class ConsoleUI {
 	    	         case "journalscientifique":
 	    	        	 deleteJournalScientifiqueUI(documentId);
 	    	         }
-	    	  
-	    	        	 
-	    	    
 	    	    } catch (SQLException e) {
 	    	        System.err.println("Erreur lors de la suppression du document: " + e.getMessage());
 	    	    }
 	    }
+	    
+	    private void updateLivreUI(int documentId) {
+	    	try {
+	            LivreDAO livreDAO = new LivreDAOImpl();
+
+	            System.out.print("Entrez le nouveau titre: ");
+	            String nouveauTitre = scanner.nextLine();
+
+	            System.out.print("Entrez le nouvel auteur: ");
+	            String nouvelAuteur = scanner.nextLine();
+
+	            System.out.print("Entrez la nouvelle date de publication (format: yyyy-mm-dd): ");
+	            String newDatePubStr = scanner.nextLine();
+	            LocalDate nouvelleDatePub = LocalDate.parse(newDatePubStr);
+
+	            System.out.print("Entrez le nouveau nombre de pages: ");
+	            int nouveauNbrPages = scanner.nextInt();
+	            scanner.nextLine();  
+
+	            System.out.print("Entrez le nouvel ISBN: ");
+	            String nouvelIsbn = scanner.nextLine();
+
+	            livreDAO.updateLivre(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouvelIsbn);
+	            System.out.println("Livre mis à jour avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la mise à jour du livre: " + e.getMessage());
+	        }
+	    }
+	    
+	    private void updateMagazineUI(int documentId) {
+	    	
+	    }
+   
+   		private void updateTheseUniversitaireUI(int documentId) {
+   	
+   		}
+   
+   		private void updateJournalScientifiqueUI(int documentId) {
+   	
+   		}
 	    
 	    private void deleteJournalScientifiqueUI(int documentId) {
 	    	try {
@@ -200,10 +268,13 @@ public class ConsoleUI {
 	                break;
 	            case "magazine":
 	            	createMagazineUI(titre, auteur, datePub, nbrPages);
+	            	break;
 	            case "journalscientifique":
 	            	createJournalScientifiqueUI(titre, auteur, datePub, nbrPages);
+	            	break;
 	            case "theseuniversitaire":
 	            	createTheseUniversitairUI(titre, auteur, datePub, nbrPages);
+	            	break;
 	            	
 	            default:
 	                System.out.println("Type de document invalide.");

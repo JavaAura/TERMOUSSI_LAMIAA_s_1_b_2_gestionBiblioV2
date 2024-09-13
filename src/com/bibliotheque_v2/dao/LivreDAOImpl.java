@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +40,29 @@ public class LivreDAOImpl implements LivreDAO  {
 	    }
 
 	    @Override
-	    public void updateLivre(Livre livre) throws SQLException {
-	        //  update logic
-	    }
+	    public void updateLivre(int documentId, String titre, String auteur, LocalDate datePub, int nbrPages, String isbn) throws SQLException {
+	    	  String updateQuery = "UPDATE livre SET titre = ?, auteur = ?, datePub = ?, nbrPages = ?, isbn = ? WHERE id = ?";
+
+	          try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+	              preparedStatement.setString(1, titre);
+	              preparedStatement.setString(2, auteur);
+	              preparedStatement.setDate(3, java.sql.Date.valueOf(datePub));
+	              preparedStatement.setInt(4, nbrPages);
+	              preparedStatement.setString(5, isbn);
+	              preparedStatement.setInt(6, documentId);
+
+	              int rowsAffected = preparedStatement.executeUpdate();
+	              if (rowsAffected > 0) {
+	                  System.out.println("Livre mis à jour avec succès.");
+	              } else {
+	                  System.out.println("Aucun livre trouvé avec cet ID.");
+	              }
+	          } catch (SQLException e) {
+	              throw new SQLException("Erreur lors de la mise à jour du livre: " + e.getMessage());
+	          }
+	      }
+	    
 
 	    @Override
 	    public void deleteLivre(int livreId) throws SQLException {
