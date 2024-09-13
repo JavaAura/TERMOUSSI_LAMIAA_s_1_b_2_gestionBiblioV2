@@ -89,7 +89,7 @@ public class JournalScientifiqueDAOImpl implements JournalScientifiqueDAO {
 	    }
 
 	    @Override
-	    public List<JournalScientifique> findAllJournalScientifiques() throws SQLException {
+	    public List<JournalScientifique> getAllJournauxScientifiques() throws SQLException {
 	        List<JournalScientifique> journals = new ArrayList<>();
 	        String sql = "SELECT * FROM journal_scientifique";
 	        try (PreparedStatement stmt = connection.prepareStatement(sql);

@@ -92,7 +92,7 @@ public class TheseUniversitaireDAOmpl implements TheseUniversitaireDAO {
 	    }
 
 	    @Override
-	    public List<TheseUniversitaire> findAllTheseUniversitaires() throws SQLException {
+	    public List<TheseUniversitaire> getAllThesesUniversitaires() throws SQLException {
 	        List<TheseUniversitaire> theses = new ArrayList<>();
 	        String sql = "SELECT * FROM these_universitaire";
 	        try (PreparedStatement stmt = connection.prepareStatement(sql);

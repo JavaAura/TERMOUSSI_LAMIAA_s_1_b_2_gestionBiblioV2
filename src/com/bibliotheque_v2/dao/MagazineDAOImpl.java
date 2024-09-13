@@ -91,7 +91,7 @@ public class MagazineDAOImpl implements MagazineDAO {
 	    }
 
 	    @Override
-	    public List<Magazine> findAllMagazines() throws SQLException {
+	    public List<Magazine> getAllMagazines() throws SQLException {
 	        List<Magazine> magazines = new ArrayList<>();
 	        String sql = "SELECT * FROM magazine";
 	        try (PreparedStatement stmt = connection.prepareStatement(sql);

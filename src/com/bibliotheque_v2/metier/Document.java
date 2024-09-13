@@ -96,6 +96,7 @@ public abstract class Document {
         this.reserverId = reserverId;
     }
     
+    public abstract String toString();
     public abstract void emprunter(Utilisateur utilisateur);
     public abstract void retourner();
     public abstract void reserver(Utilisateur utilisateur);

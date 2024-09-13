@@ -18,6 +18,24 @@ public class JournalScientifique extends Document{
     public void setDomaineRecherche(String domaineRecherche) {
         this.domaineRecherche = domaineRecherche;
     }
+    
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Livre [Titre=").append(getTitre())
+        .append(", Auteur=").append(getAuteur())
+        .append(", Date de publication=").append(getDatePub())
+        .append(", Nombre de pages=").append(getNbrPages())
+          .append(", Domaine de recherche=").append(getDomaineRecherche())
+          .append(", Bibliothèque ID=").append(getBibliothequeId())
+          .append(", Borrower ID=").append(getBorrowerId() != null ? getBorrowerId() : "N/A")
+          .append(", Reserver ID=").append(getReserverId() != null ? getReserverId() : "N/A")
+          .append("]");
+
+
+        return sb.toString();
+    }
+    
     @Override
     public void emprunter(Utilisateur utilisateur) {
       

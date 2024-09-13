@@ -13,5 +13,5 @@ public interface LivreDAO {
 	    void updateLivre(int documentId, String titre, String auteur, LocalDate datePub, int nbrPages, String isbn) throws SQLException;
 	    void deleteLivre(int livreId) throws SQLException;
 	    Livre findLivreById(int livreId) throws SQLException;
-	    List<Livre> findAllLivres() throws SQLException;
+	    List<Livre> getAllLivres() throws SQLException;
 }

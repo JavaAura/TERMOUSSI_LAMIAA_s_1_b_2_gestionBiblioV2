@@ -1,5 +1,6 @@
 package com.bibliotheque_v2.presentation;
 
+import java.util.List;
 import java.util.Scanner;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -86,7 +87,7 @@ public class ConsoleUI {
 	            deleteDocument();
 	            break;
 	        case 4:
-	            displayDocuments();
+	        	displayAllDocuments();
 	            break;
 	        case 5:
 	            // Retourne au menu principal
@@ -270,7 +271,66 @@ public class ConsoleUI {
 	        }
 	    }
 	    
-	    private void displayDocuments() {}
+	    private void displayAllDocuments() {
+	    	System.out.println("=== Afficher tous les Documents ===");
+	        
+	        displayAllLivres();
+	        displayAllMagazines();
+	        displayAllThesesUniversitaires();
+	        displayAllJournauxScientifiques();
+	    }
+	    
+	    private void displayAllLivres() {
+	        try {
+	            LivreDAO livreDAO = new LivreDAOImpl();
+	            List<Livre> livres = livreDAO.getAllLivres();
+	            System.out.println("--- Livres ---");
+	            for (Livre livre : livres) {
+	                System.out.println(livre);  
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de l'affichage des livres: " + e.getMessage());
+	        }
+	    }
+	    
+	    private void displayAllMagazines() {
+	        try {
+	            MagazineDAO magazineDAO = new MagazineDAOImpl();
+	            List<Magazine> magazines = magazineDAO.getAllMagazines();
+	            System.out.println("--- Magazines ---");
+	            for (Magazine magazine : magazines) {
+	                System.out.println(magazine);  
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de l'affichage des magazines: " + e.getMessage());
+	        }
+	    }
+
+	    private void displayAllThesesUniversitaires() {
+	        try {
+	            TheseUniversitaireDAO theseDAO = new TheseUniversitaireDAOmpl();
+	            List<TheseUniversitaire> theses = theseDAO.getAllThesesUniversitaires();
+	            System.out.println("--- Thèses Universitaires ---");
+	            for (TheseUniversitaire these : theses) {
+	                System.out.println(these); 
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de l'affichage des thèses universitaires: " + e.getMessage());
+	        }
+	    }
+
+	    private void displayAllJournauxScientifiques() {
+	        try {
+	            JournalScientifiqueDAO journalDAO = new JournalScientifiqueDAOImpl();
+	            List<JournalScientifique> journaux = journalDAO.getAllJournauxScientifiques();
+	            System.out.println("--- Journaux Scientifiques ---");
+	            for (JournalScientifique journal : journaux) {
+	                System.out.println(journal); 
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de l'affichage des journaux scientifiques: " + e.getMessage());
+	        }
+	    }
 	    
 	    private void createDocument() {
 	        System.out.println("=== Ajouter un Document ===");

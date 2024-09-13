@@ -12,5 +12,5 @@ public interface JournalScientifiqueDAO {
 	    void updateJournalScientifique(int documentId,String nouveauTitre,String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages,String nouveauDomaineRecherche) throws SQLException;
 	    void deleteJournalScientifique(int journalID) throws SQLException;
 	    JournalScientifique findJournalScientifiqueById(int journalID) throws SQLException;
-	    List<JournalScientifique> findAllJournalScientifiques() throws SQLException;
+	    List<JournalScientifique> getAllJournauxScientifiques() throws SQLException;
 }

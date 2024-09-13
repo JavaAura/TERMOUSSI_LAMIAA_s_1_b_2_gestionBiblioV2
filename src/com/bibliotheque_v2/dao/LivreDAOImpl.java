@@ -88,7 +88,7 @@ public class LivreDAOImpl implements LivreDAO  {
 	    }
 
 	    @Override
-	    public List<Livre> findAllLivres() throws SQLException {
+	    public List<Livre> getAllLivres() throws SQLException {
 	        List<Livre> livres = new ArrayList<>();
 	        String sql = "SELECT * FROM livre";
 	        try (PreparedStatement stmt = connection.prepareStatement(sql);

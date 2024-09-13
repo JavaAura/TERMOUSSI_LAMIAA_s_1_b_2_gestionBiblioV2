@@ -19,6 +19,21 @@ public class Magazine extends Document {
 	        this.numero = numero;
 	    }
 	    
+	    @Override
+	    public String toString() {
+	        StringBuffer sb = new StringBuffer();
+	        sb.append("Livre [Titre=").append(getTitre())
+	          .append(", Auteur=").append(getAuteur())
+	          .append(", Date de publication=").append(getDatePub())
+	          .append(", Nombre de pages=").append(getNbrPages())
+	          .append(", Numéro=").append(getNumero())
+	          .append(", Bibliothèque ID=").append(getBibliothequeId())
+	          .append(", Borrower ID=").append(getBorrowerId() != null ? getBorrowerId() : "N/A")
+	          .append(", Reserver ID=").append(getReserverId() != null ? getReserverId() : "N/A")
+	          .append("]");
+
+	        return sb.toString();
+	    }
 	    
 	    @Override
 	    public void emprunter(Utilisateur utilisateur) {
