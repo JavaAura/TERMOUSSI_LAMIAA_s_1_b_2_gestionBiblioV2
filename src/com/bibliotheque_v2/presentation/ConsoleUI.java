@@ -15,7 +15,9 @@ import com.bibliotheque_v2.dao.LivreDAO;
 import com.bibliotheque_v2.dao.LivreDAOImpl;
 import com.bibliotheque_v2.dao.DocumentDAOImpl;
 import com.bibliotheque_v2.dao.EtudiantDAOImpl;
+import com.bibliotheque_v2.dao.ProfesseurDAOImpl;
 import com.bibliotheque_v2.dao.DocumentDAO;
+import com.bibliotheque_v2.dao.ProfesseurDAO;
 import com.bibliotheque_v2.dao.EtudiantDAO;
 import com.bibliotheque_v2.metier.*;
 
@@ -124,7 +126,17 @@ public class ConsoleUI {
 	    }
 	    
 	    private void createProfesseur(String name, String email) {
-			
+	    	System.out.print("Entrez le departement de professeur: ");
+		    String dep = scanner.nextLine();
+		    Professeur prof = new Professeur( name, email,"professeur", dep); 
+
+		    try {
+		        ProfesseurDAO professeurDAO = new ProfesseurDAOImpl();
+		        professeurDAO.createProfesseur(prof);
+		        System.out.println("Professeur créé avec succès.");
+		    } catch (SQLException e) {
+		        System.err.println("Erreur lors de la création du professeur: " + e.getMessage());
+		    }
 		}
 
 		private void createEtudiant(String name, String email) {

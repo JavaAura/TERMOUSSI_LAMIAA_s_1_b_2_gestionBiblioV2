@@ -65,6 +65,7 @@ public class EtudiantDAOImpl implements EtudiantDAO {
                 Etudiant etudiant = new Etudiant(
                     rs.getString("name"),
                     rs.getString("email"),
+                    rs.getString("type"),
                     rs.getString("numero")
                 );
                 etudiants.add(etudiant);
