@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,29 @@ public class JournalScientifiqueDAOImpl implements JournalScientifiqueDAO {
 	    }
 
 	    @Override
-	    public void updateJournalScientifique(JournalScientifique journal) throws SQLException {
-	        //  update logic
+	    public void updateJournalScientifique(int documentId,String nouveauTitre,String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages,String nouveauDomaineRecherche) throws SQLException {
+	    	 String updateQuery = "UPDATE journal_scientifique SET titre = ?, auteur = ?, datePub = ?, nbrPages = ?,domaine_recherche=? WHERE id = ?";
+
+	         try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+	             preparedStatement.setString(1, nouveauTitre);
+	             preparedStatement.setString(2, nouvelAuteur);
+	             preparedStatement.setObject(3, nouvelleDatePub); 
+	             preparedStatement.setInt(4, nouveauNbrPages);
+	             preparedStatement.setString(5, nouveauDomaineRecherche);
+	             preparedStatement.setInt(6, documentId);
+
+	             int rowsUpdated = preparedStatement.executeUpdate();
+	             if (rowsUpdated > 0) {
+	                 System.out.println("Le journal scientifique a été mis à jour avec succès.");
+	             } else {
+	                 System.out.println("Aucune journal scientifique trouvé avec l'ID spécifié.");
+	             }
+
+	         } catch (SQLException e) {
+	             System.err.println("Erreur lors de la mise à jour du journal scientifique: " + e.getMessage());
+	             throw e; 
+	         }
 	    }
 
 	    @Override

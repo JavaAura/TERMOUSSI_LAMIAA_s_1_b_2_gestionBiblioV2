@@ -217,18 +217,17 @@ public class ConsoleUI {
    		}
    
    		private void updateJournalScientifiqueUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
-   			/*try {
+   			try {
    		        JournalScientifiqueDAO journalDAO = new JournalScientifiqueDAOImpl();
 
    		        System.out.print("Entrez le nouveau domaine de recherche: ");
    		        String nouveauDomaineRecherche = scanner.nextLine();
 
-   		        // Appeler la méthode de mise à jour dans JournalScientifiqueDAO
    		        journalDAO.updateJournalScientifique(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouveauDomaineRecherche);
    		        System.out.println("Journal scientifique mis à jour avec succès.");
    		    } catch (SQLException e) {
    		        System.err.println("Erreur lors de la mise à jour du journal scientifique: " + e.getMessage());
-   		    } */
+   		    } 
    		}
 	    
 	    private void deleteJournalScientifiqueUI(int documentId) {
