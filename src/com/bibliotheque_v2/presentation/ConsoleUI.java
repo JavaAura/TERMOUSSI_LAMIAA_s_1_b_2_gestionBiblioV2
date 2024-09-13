@@ -200,21 +200,20 @@ public class ConsoleUI {
 	    }
    
    		private void updateTheseUniversitaireUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
-   		/* try {
-   	        TheseUniversitaireDAO theseDAO = new TheseUniversitaireDAOImpl();
+   			try {
+   				TheseUniversitaireDAO theseDAO = new TheseUniversitaireDAOmpl();
 
-   	        System.out.print("Entrez la nouvelle université: ");
-   	        String nouvelleUniversite = scanner.nextLine();
+   				System.out.print("Entrez la nouvelle université: ");
+   				String nouvelleUniversite = scanner.nextLine();
 
-   	        System.out.print("Entrez le nouveau domaine: ");
-   	        String nouveauDomaine = scanner.nextLine();
+   				System.out.print("Entrez le nouveau domaine: ");
+   				String nouveauDomaine = scanner.nextLine();
 
-   	        // Appeler la méthode de mise à jour dans TheseUniversitaireDAO
-   	        theseDAO.updateTheseUniversitaire(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouvelleUniversite, nouveauDomaine);
-   	        System.out.println("Thèse universitaire mise à jour avec succès.");
-   	    } catch (SQLException e) {
-   	        System.err.println("Erreur lors de la mise à jour de la thèse universitaire: " + e.getMessage());
-   	    } */
+   				theseDAO.updateTheseUniversitaire(documentId, nouveauTitre, nouvelAuteur, nouvelleDatePub, nouveauNbrPages, nouvelleUniversite, nouveauDomaine);
+   				System.out.println("Thèse universitaire mise à jour avec succès.");
+   			} catch (SQLException e) {
+   				System.err.println("Erreur lors de la mise à jour de la thèse universitaire: " + e.getMessage());
+   			} 	
    		}
    
    		private void updateJournalScientifiqueUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
