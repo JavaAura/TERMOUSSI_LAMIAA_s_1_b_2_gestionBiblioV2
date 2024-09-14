@@ -36,14 +36,27 @@ public class EtudiantDAOImpl implements EtudiantDAO {
     
     @Override
     public void updateEtudiant(int id, String name, String email, String numero) throws SQLException {
-        String sql = "UPDATE etudiant SET name = ?, email = ?, numero = ? WHERE id = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.setString(3, numero);
-            pstmt.setInt(4, id);
-            pstmt.executeUpdate();
-        }
+    	  String updateQuery = "UPDATE etudiant SET name = ?, email = ?, numero = ? WHERE id = ?";
+
+    	    try (PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
+
+    	        stmt.setString(1, name);
+    	        stmt.setString(2, email);
+    	        stmt.setString(3, numero); 
+    	        stmt.setInt(4, id);
+
+    	        int rowsUpdated = stmt.executeUpdate();
+
+    	        if (rowsUpdated > 0) {
+    	            System.out.println("L'étudiant a été mis à jour avec succès.");
+    	        } else {
+    	            System.out.println("Aucun étudiant trouvé avec l'ID spécifié.");
+    	        }
+
+    	    } catch (SQLException e) {
+    	        System.err.println("Erreur lors de la mise à jour de l'étudiant: " + e.getMessage());
+    	        throw e;
+    	    }
     }
     
     @Override

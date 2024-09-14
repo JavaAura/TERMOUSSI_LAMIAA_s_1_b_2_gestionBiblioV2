@@ -157,7 +157,17 @@ public class ConsoleUI {
 		}
 
 		private void updateEtudiantUI(int userId, String newName, String newEmail) {
-			// TODO Auto-generated method stub
+			  try {
+			        EtudiantDAO etudiantDAO = new EtudiantDAOImpl();
+
+			        System.out.print("Entrez le nouveau numéro de l'étudiant : ");
+			        String nouveauNumero = scanner.nextLine();
+
+			        etudiantDAO.updateEtudiant(userId, newName, newEmail, nouveauNumero);
+			        System.out.println("Étudiant mis à jour avec succès.");
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors de la mise à jour de l'étudiant: " + e.getMessage());
+			    }
 			
 		}
 
