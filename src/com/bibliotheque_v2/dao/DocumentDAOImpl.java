@@ -36,7 +36,7 @@ public class DocumentDAOImpl implements DocumentDAO{
 	    }
 	   
 	    @Override
-	    public Integer getDocumentByTitle(String title) throws SQLException {
+	    public Integer getDocumentIDByTitle(String title) throws SQLException {
 	        String sql = "SELECT * FROM document WHERE titre = ?";
 	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 	            stmt.setString(1, title);
@@ -54,6 +54,22 @@ public class DocumentDAOImpl implements DocumentDAO{
 	       }
 	      }
 	    
+	    @Override 
+	    public void updateBorrowerIdNull(int documentId,int userID) throws SQLException{
+	    	String sql = "UPDATE document SET borrower_id = ? WHERE id = ? AND borrower_id =?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        	 stmt.setNull(1, java.sql.Types.INTEGER); // Set borrower_id to NULL
+	            stmt.setInt(2, documentId);
+	            stmt.setInt(3, userID);
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected == 0) {
+	                throw new SQLException("Either no document found with ID: " + documentId + " or the document is already borrowed or you are not the borrower !");
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error updating borrower ID for document with ID " + documentId + ": " + e.getMessage());
+	            throw e;
+	        }
+	    }
 	    @Override
 	    public void updateBorrowerId(int documentId, int borrowerId) throws SQLException {
 	        String sql = "UPDATE document SET borrower_id = ? WHERE id = ? AND borrower_id IS NULL";

@@ -86,7 +86,7 @@ public class ConsoleUI {
 	                    break;
 	                case 2:
 	                    if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
-	                    	reservUI();
+	                    	retournerDocUI(email);
 	                    } else if (userType.equalsIgnoreCase("admin")) {
 	                    	  manageUsers();
 	                    }
@@ -114,8 +114,28 @@ public class ConsoleUI {
 	        }
 	    }
 	    
-	    private void reservUI() {
-			// TODO Auto-generated method stub
+	 
+
+		private void retournerDocUI(String email) {
+			 UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); 
+			    DocumentDAO documentDAO = new DocumentDAOImpl(); 
+
+			 try {
+			        int userId = utilisateurDAO.getCurrentUserId(email); 
+			        System.out.print("Entrez le titre du document que vous souhaitez retourner: ");
+			        String documentTitle = scanner.nextLine();
+
+			       Integer docID= documentDAO.getDocumentIDByTitle(documentTitle);
+
+			        if (docID == null) {
+			            System.out.println("Document non trouvé.");
+			            return;
+			        }
+			            documentDAO.updateBorrowerIdNull(docID,userId);
+			            System.out.println("Document retourné avec succès.");
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors du retour du document: " + e.getMessage());
+			    } 
 			
 		}
 
@@ -127,28 +147,11 @@ public class ConsoleUI {
 		    UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); 
 		    try {
 		        int userId = utilisateurDAO.getCurrentUserId(email); 
-		        Integer docID = documentDAO.getDocumentByTitle(documentTitle);
-		       /* if (document instanceof Magazine) {
-		            Magazine magazine = (Magazine) document;
-		        } else if (document instanceof Livre) {
-		            Livre livre = (Livre) document;
-		        } else if (document instanceof TheseUniversitaire) {
-		            TheseUniversitaire these = (TheseUniversitaire) document;
-		        } else if (document instanceof JournalScientifique)  {
-		        	JournalScientifique journal = (JournalScientifique) document;
-		        }else {
-		            System.out.println("Document inconnu.");
-		        }*/
-		        
+		        Integer docID = documentDAO.getDocumentIDByTitle(documentTitle);
 		        if (docID == null) {
 		            System.out.println("Document non trouvé avec le titre spécifié.");
 		            return;
 		        }
-		        
-		     /*   if (document.getBorrowerId() != null) {
-		            System.out.println("Le document est déjà emprunté.");
-		            return;
-		        }*/
 		        documentDAO.updateBorrowerId(docID, userId);
 		        System.out.println("Document emprunté avec succès.");
 		    } catch (SQLException e) {
