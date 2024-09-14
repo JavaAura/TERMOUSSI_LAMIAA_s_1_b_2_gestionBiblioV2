@@ -14,9 +14,11 @@ import com.bibliotheque_v2.dao.JournalScientifiqueDAOImpl;
 import com.bibliotheque_v2.dao.LivreDAO;
 import com.bibliotheque_v2.dao.LivreDAOImpl;
 import com.bibliotheque_v2.dao.DocumentDAOImpl;
+import com.bibliotheque_v2.dao.UtilisateurDAOImpl;
 import com.bibliotheque_v2.dao.EtudiantDAOImpl;
 import com.bibliotheque_v2.dao.ProfesseurDAOImpl;
 import com.bibliotheque_v2.dao.DocumentDAO;
+import com.bibliotheque_v2.dao.UtilisateurDAO;
 import com.bibliotheque_v2.dao.ProfesseurDAO;
 import com.bibliotheque_v2.dao.EtudiantDAO;
 import com.bibliotheque_v2.metier.*;
@@ -101,7 +103,65 @@ public class ConsoleUI {
 	        }
 	    }
 	    
-	    private void createUser() {
+	    private void updateUser() {
+	        System.out.println("=== Mettre à jour un Utilisateur ===");
+
+	        System.out.print("Entrez l'ID de l'utilisateur à mettre à jour: ");
+	        int userId = scanner.nextInt();
+	        scanner.nextLine();  
+
+	        try {
+	        	UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl();
+	            String type = utilisateurDAO.getUtilisateurType(userId);
+
+	            if (type == null) {
+	                System.out.println("Utilisateur non trouvé.");
+	                return;
+	            }
+
+	            System.out.print("Entrez le nouveau nom : ");
+	            String newName = scanner.nextLine();
+
+	            System.out.print("Entrez le nouvel email: ");
+	            String newEmail = scanner.nextLine();
+
+	            switch (type.toLowerCase()) {
+	                case "etudiant":
+	                    updateEtudiantUI(userId, newName, newEmail);
+	                    break;
+	                case "professeur":
+	                    updateProfesseurUI(userId, newName, newEmail);
+	                    break;
+	                default:
+	                    System.out.println("Type d'utilisateur inconnu: " + type);
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la mise à jour de l'utilisateur: " + e.getMessage());
+	        }
+	    }
+	    
+	    
+	    private void updateProfesseurUI(int userId, String newName, String newEmail) {
+	    	   try {
+	    	        ProfesseurDAO professeurDAO = new ProfesseurDAOImpl();
+
+	    	        System.out.print("Entrez le nouveau departement : ");
+	    	        String dep = scanner.nextLine();
+
+	    	        professeurDAO.updateProfesseur(userId, newName, newEmail, dep);
+	    	        System.out.println("Professeur mis à jour avec succès.");
+	    	    } catch (SQLException e) {
+	    	        System.err.println("Erreur lors de la mise à jour du professeur: " + e.getMessage());
+	    	    }
+			
+		}
+
+		private void updateEtudiantUI(int userId, String newName, String newEmail) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void createUser() {
 	    	System.out.println("=== Ajouter un Utilisateur ===");
 
 	        System.out.print("Entrez le nom: ");
@@ -153,9 +213,6 @@ public class ConsoleUI {
 			    }
 		}
 
-		private void updateUser() {
-	    	
-	    }
  
 	    private void deleteUser() {
  	
