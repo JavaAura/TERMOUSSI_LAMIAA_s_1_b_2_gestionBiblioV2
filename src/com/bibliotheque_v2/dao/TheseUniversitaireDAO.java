@@ -13,4 +13,6 @@ public interface TheseUniversitaireDAO {
 	    void updateTheseUniversitaire(int documentId, String nouveauTitre, String nouvelAuteur,LocalDate nouvelleDatePub, int nouveauNbrPages, String nouvelleUniversite, String nouveauDomaine) throws SQLException;
 	    void deleteTheseUniversitaire(int theseID) throws SQLException;
 	    List<TheseUniversitaire> getAllThesesUniversitaires() throws SQLException;
+	    TheseUniversitaire getTheseUniversitaireById(int documentId) throws SQLException;
+
 }

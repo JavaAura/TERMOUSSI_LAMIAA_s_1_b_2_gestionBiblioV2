@@ -359,10 +359,10 @@ public class ConsoleUI {
 	    	            case "magazine":
 	    	                searchMagazineByIdUI(documentId);
 	    	                break;
-	    	            case "these universitaire":
+	    	            case "theseuniversitaire":
 	    	                searchTheseUniversitaireByIdUI(documentId);
 	    	                break;
-	    	            case "journal scientifique":
+	    	            case "journalscientifique":
 	    	                searchJournalScientifiqueByIdUI(documentId);
 	    	                break;
 	    	            default:
@@ -380,7 +380,18 @@ public class ConsoleUI {
 		}
 
 		private void searchTheseUniversitaireByIdUI(int documentId) {
-			// TODO Auto-generated method stub
+			TheseUniversitaireDAO theseUniversitaireDAO = new TheseUniversitaireDAOmpl();
+		    try {
+		        TheseUniversitaire theseUniversitaire = theseUniversitaireDAO.getTheseUniversitaireById(documentId);
+		        if (theseUniversitaire != null) {
+		            System.out.println("Thèse Universitaire trouvée:");
+		            System.out.println(theseUniversitaire);
+		        } else {
+		            System.out.println("Thèse Universitaire non trouvée avec l'ID spécifié.");
+		        }
+		    } catch (SQLException e) {
+		        System.err.println("Erreur lors de la recherche de la thèse universitaire: " + e.getMessage());
+		    }
 			
 		}
 

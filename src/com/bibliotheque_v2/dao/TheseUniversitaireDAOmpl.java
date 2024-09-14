@@ -85,7 +85,6 @@ public class TheseUniversitaireDAOmpl implements TheseUniversitaireDAO {
 	        }
 	    }
 
-	  
 
 	    @Override
 	    public List<TheseUniversitaire> getAllThesesUniversitaires() throws SQLException {
@@ -111,4 +110,34 @@ public class TheseUniversitaireDAOmpl implements TheseUniversitaireDAO {
 	        }
 	        return theses;
 	    }
+	    
+	    @Override
+	    public TheseUniversitaire getTheseUniversitaireById(int documentId) throws SQLException {
+	        String sql = "SELECT * FROM these_universitaire WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, documentId);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return new TheseUniversitaire(
+	                        rs.getString("titre"),
+	                        rs.getString("auteur"),
+	                        rs.getDate("datePub").toLocalDate(),
+	                        rs.getInt("nbrPages"),
+	                        rs.getString("type"),
+	                        rs.getInt("bibliotheque_id"),
+	                        rs.getObject("borrower_id", Integer.class),
+	                        rs.getObject("reserver_id", Integer.class),
+	                        rs.getString("universite")  ,
+	                        rs.getString("domaine")  
+	                    );
+	                } else {
+	                    return null; 
+	                }
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error retrieving thesis with ID " + documentId + ": " + e.getMessage());
+	            throw e;
+	        }
+	    }
+
 }
