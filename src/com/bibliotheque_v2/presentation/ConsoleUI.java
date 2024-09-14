@@ -688,7 +688,7 @@ public class ConsoleUI {
    				System.err.println("Erreur lors de la mise à jour de la thèse universitaire: " + e.getMessage());
    			} 	
    		}
-   
+    
    		private void updateJournalScientifiqueUI(int documentId, String nouveauTitre, String nouvelAuteur, LocalDate nouvelleDatePub, int nouveauNbrPages) {
    			try {
    		        JournalScientifiqueDAO journalDAO = new JournalScientifiqueDAOImpl();
