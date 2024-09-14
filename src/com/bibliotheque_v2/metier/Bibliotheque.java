@@ -6,7 +6,6 @@ public class Bibliotheque {
 	    private String nom;
 	    
 	    public Bibliotheque(int id, String nom) {
-	        this.id = id;
 	        this.nom = nom;
 	    }
 
