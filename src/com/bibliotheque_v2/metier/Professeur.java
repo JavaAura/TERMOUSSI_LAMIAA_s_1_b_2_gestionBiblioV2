@@ -18,6 +18,17 @@ public class Professeur extends Utilisateur {
 	    }
 	    
 	    @Override
+	    public String toString() {
+	        StringBuffer sb = new StringBuffer();
+	        sb.append("Professeur [Nom=").append(getName())
+	          .append(", Email=").append(getEmail())
+	          .append(", Département=").append(getDepartement())
+	          .append("]");
+
+	        return sb.toString();
+	    }
+	    
+	    @Override
 	    public void emprunterDocument(Document document) {
 	     
 	    }

@@ -79,20 +79,21 @@ public class EtudiantDAOImpl implements EtudiantDAO {
     
     @Override
     public List<Etudiant> getAllEtudiants() throws SQLException {
-        List<Etudiant> etudiants = new ArrayList<>();
-        String sql = "SELECT * FROM etudiant";
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Etudiant etudiant = new Etudiant(
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    rs.getString("type"),
-                    rs.getString("numero")
-                );
-                etudiants.add(etudiant);
-            }
-        }
-        return etudiants;
+    	 List<Etudiant> etudiants = new ArrayList<>();
+    	    String sql = "SELECT * FROM etudiant"; 
+
+    	    try (PreparedStatement stmt = connection.prepareStatement(sql);
+    	         ResultSet rs = stmt.executeQuery()) {
+    	        while (rs.next()) {
+    	            Etudiant etudiant = new Etudiant(
+    	                rs.getString("name"),
+    	                rs.getString("email"),
+    	                rs.getString("type"),
+    	                rs.getString("numero")
+    	            );
+    	            etudiants.add(etudiant);
+    	        }
+    	    }
+    	    return etudiants;
     }
 }

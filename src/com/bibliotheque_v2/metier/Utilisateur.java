@@ -41,6 +41,8 @@ public abstract class Utilisateur {
 	        return type;
 	    }
 	    
+	    public abstract String toString();
+	    
 	    public abstract void emprunterDocument(Document document);
 
 	    public abstract void retournerDocument(Document document);

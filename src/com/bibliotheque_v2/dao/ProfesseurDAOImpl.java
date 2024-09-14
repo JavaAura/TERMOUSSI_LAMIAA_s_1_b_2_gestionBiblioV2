@@ -2,7 +2,10 @@ package com.bibliotheque_v2.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.bibliotheque_v2.db.DbConnection;
 import com.bibliotheque_v2.metier.Professeur;
@@ -72,4 +75,24 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
 		        throw e;
 		    }
 		}
+	  
+	  @Override
+	  public List<Professeur> getAllProfesseurs() throws SQLException{
+		  List<Professeur> professeurs = new ArrayList<>();
+		    String sql = "SELECT * FROM professeur";
+
+		    try (PreparedStatement stmt = connection.prepareStatement(sql);
+		         ResultSet rs = stmt.executeQuery()) {
+		        while (rs.next()) {
+		            Professeur professeur = new Professeur(
+		            	    rs.getString("name"),
+	    	                rs.getString("email"),
+	    	                rs.getString("type"),
+	    	                rs.getString("departement")
+		            );
+		            professeurs.add(professeur);
+		        }
+		    }
+		    return professeurs;
+	  }
 }

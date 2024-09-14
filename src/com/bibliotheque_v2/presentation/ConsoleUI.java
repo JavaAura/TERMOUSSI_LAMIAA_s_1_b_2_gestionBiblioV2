@@ -277,10 +277,38 @@ public class ConsoleUI {
 		}
 
 		private void displayAllUsers() {
- 	
+	    	System.out.println("=== Afficher tous les utilisateurs ===");
+	    	displayAllEtudiantsUI();
+	    	displayAllProfesseursUI();
 	    }
 	    
-	    private void manageDocuments() {
+	    private void displayAllProfesseursUI() {
+	    	 try {
+		            ProfesseurDAO profDAO = new ProfesseurDAOImpl();
+		            List<Professeur> profs = profDAO.getAllProfesseurs();
+		            System.out.println("--- Professeurs ---");
+		            for (Professeur prof : profs) {
+		                System.out.println(prof);  
+		            }
+		        } catch (SQLException e) {
+		            System.err.println("Erreur lors de l'affichage des professeurs: " + e.getMessage());
+		        }
+		}
+
+		private void displayAllEtudiantsUI() {
+			 try {
+		            EtudiantDAO etudDAO = new EtudiantDAOImpl();
+		            List<Etudiant> etudiants = etudDAO.getAllEtudiants();
+		            System.out.println("--- Etudiants ---");
+		            for (Etudiant etud : etudiants) {
+		                System.out.println(etud);  
+		            }
+		        } catch (SQLException e) {
+		            System.err.println("Erreur lors de l'affichage des etudiants: " + e.getMessage());
+		        }
+		}
+
+		private void manageDocuments() {
 	        System.out.println("~~~~ Gestion des Documents ~~~~");
 	        System.out.println("1. Ajouter un document");
 	        System.out.println("2. Mettre à jour un document");
