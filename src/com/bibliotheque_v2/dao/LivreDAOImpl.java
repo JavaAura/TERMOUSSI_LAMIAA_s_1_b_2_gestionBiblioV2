@@ -81,8 +81,6 @@ public class LivreDAOImpl implements LivreDAO  {
 	        }
 	    }
 
-	
-
 	    @Override
 	    public List<Livre> getAllLivres() throws SQLException {
 	        List<Livre> livres = new ArrayList<>();
@@ -106,4 +104,33 @@ public class LivreDAOImpl implements LivreDAO  {
 	        }
 	        return livres;
 	    }
+	    
+	    @Override
+	    public Livre getLivreById(int documentId) throws SQLException {
+	        String sql = "SELECT * FROM livre WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, documentId);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return new Livre(
+	                        rs.getString("titre"),
+	                        rs.getString("auteur"),
+	                        rs.getDate("datePub").toLocalDate(),
+	                        rs.getInt("nbrPages"),
+	                        rs.getString("type"),
+	                        rs.getInt("bibliotheque_id"),
+	                        rs.getObject("borrower_id", Integer.class),
+	                        rs.getObject("reserver_id", Integer.class),
+	                        rs.getString("isbn") 
+	                    );
+	                } else {
+	                    return null; 
+	                }
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error retrieving livre with ID " + documentId + ": " + e.getMessage());
+	            throw e;
+	        }
+	    }
+
 }

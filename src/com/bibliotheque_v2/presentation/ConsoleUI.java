@@ -400,7 +400,18 @@ public class ConsoleUI {
 		}
 
 		private void searchLivreByIdUI(int documentId) {
-			// TODO Auto-generated method stub
+			LivreDAO livreDAO = new LivreDAOImpl();
+		    try {
+		        Livre livre = livreDAO.getLivreById(documentId);
+		        if (livre != null) {
+		            System.out.println("Livre trouvé:");
+		            System.out.println(livre);
+		        } else {
+		            System.out.println("Livre non trouvé avec l'ID spécifié.");
+		        }
+		    } catch (SQLException e) {
+		        System.err.println("Erreur lors de la recherche du livre: " + e.getMessage());
+		    }
 			
 		}
 

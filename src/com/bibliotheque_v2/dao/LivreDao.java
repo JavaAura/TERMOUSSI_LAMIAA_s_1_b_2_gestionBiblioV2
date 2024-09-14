@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.bibliotheque_v2.metier.Livre;
+import com.bibliotheque_v2.metier.Magazine;
 
 public interface LivreDAO {
 	
@@ -13,4 +14,5 @@ public interface LivreDAO {
 	    void updateLivre(int documentId, String titre, String auteur, LocalDate datePub, int nbrPages, String isbn) throws SQLException;
 	    void deleteLivre(int livreId) throws SQLException;
 	    List<Livre> getAllLivres() throws SQLException;
+	    Livre getLivreById(int documentId) throws SQLException;
 }
