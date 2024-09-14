@@ -314,7 +314,7 @@ public class ConsoleUI {
 	        System.out.println("2. Mettre à jour un document");
 	        System.out.println("3. Supprimer un document");
 	        System.out.println("4. Afficher tous les documents");
-	        System.out.println("5. Retour au menu principal");
+	        System.out.println("5.Rechercher un document");
 	        System.out.print("Choisissez une option: ");
 
 	        int choice = scanner.nextInt();
@@ -334,13 +334,77 @@ public class ConsoleUI {
 	        	displayAllDocuments();
 	            break;
 	        case 5:
-	            // Retourne au menu principal
+	           searchDocument();
 	            break;
 	        default:
 	            System.out.println("Option invalide. Veuillez réessayer.");
 	        }
 	   }
-	    private void updateDocument() {
+		
+	    private void searchDocument() {
+	    	   System.out.println("=== Rechercher un Document ===");
+
+	    	    System.out.print("Entrez l'ID du document à rechercher: ");
+	    	    int documentId = scanner.nextInt();
+	    	    scanner.nextLine();  
+
+	    	    try {
+	    	        DocumentDAO documentDAO = new DocumentDAOImpl();
+	    	        String documentType = documentDAO.getDocumentType(documentId);
+
+	    	        switch (documentType.toLowerCase()) {
+	    	            case "livre":
+	    	                searchLivreByIdUI(documentId);
+	    	                break;
+	    	            case "magazine":
+	    	                searchMagazineByIdUI(documentId);
+	    	                break;
+	    	            case "these universitaire":
+	    	                searchTheseUniversitaireByIdUI(documentId);
+	    	                break;
+	    	            case "journal scientifique":
+	    	                searchJournalScientifiqueByIdUI(documentId);
+	    	                break;
+	    	            default:
+	    	                System.out.println("Type de document inconnu: " + documentType);
+	    	        }
+	    	    } catch (SQLException e) {
+	    	        System.err.println("Erreur lors de la recherche du document: " + e.getMessage());
+	    	    }
+			
+		}
+
+		private void searchJournalScientifiqueByIdUI(int documentId) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void searchTheseUniversitaireByIdUI(int documentId) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void searchMagazineByIdUI(int documentId) {
+			  MagazineDAO magazineDAO = new MagazineDAOImpl();
+			    try {
+			        Magazine magazine = magazineDAO.getMagazineById(documentId);
+			        if (magazine != null) {
+			            System.out.println("Magazine trouvé:");
+			            System.out.println(magazine);
+			        } else {
+			            System.out.println("Magazine non trouvé avec l'ID spécifié.");
+			        }
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors de la recherche du magazine: " + e.getMessage());
+			    }
+		}
+
+		private void searchLivreByIdUI(int documentId) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void updateDocument() {
 	        System.out.println("=== Mettre à Jour un Document ===");
 
 	        System.out.print("Entrez l'ID du document à mettre à jour: ");
