@@ -28,34 +28,7 @@ public class Etudiant extends Utilisateur {
 	    	    return sb.toString();
 	    }
 
-	    @Override
-	    public void emprunterDocument(Document document) {
-	        if (peutEmprunter(document)) {
-	            //  emprunter le document
-	        } else {
-	            throw new IllegalStateException("L'étudiant ne peut pas emprunter ce document.");
-	        }
-	    }
-
-	    @Override
-	    public void retournerDocument(Document document) {
-	        
-	    }
-
-	    @Override
-	    public void reserverDocument(Document document) {
-	        if (peutReserver(document)) {
-	            //  réserver le document
-	        } else {
-	            throw new IllegalStateException("L'étudiant ne peut pas réserver ce document.");
-	        }
-	    }
-
-	    @Override
-	    public void annulerReservation(Document document) {
-	        
-	    }
-
+	  
 	    @Override
 	    public boolean peutEmprunter(Document document) {
 	        
