@@ -54,4 +54,22 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
 	          throw e;
 	      }
 	  }
+	  
+	  @Override
+	  public void deleteProfesseur(int professeurId) throws SQLException {
+		    String sql = "DELETE FROM professeur WHERE id = ?";
+		    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		        stmt.setInt(1, professeurId);
+		        int rowsAffected = stmt.executeUpdate();
+
+		        if (rowsAffected > 0) {
+		            System.out.println("Professeur avec ID " + professeurId + " est supprimé avec succès.");
+		        } else {
+		            System.out.println("Aucun professeur trouvé avec ID " + professeurId + ".");
+		        }
+		    } catch (SQLException e) {
+		        System.err.println("Erreur lors de la suppression du professeur: " + e.getMessage());
+		        throw e;
+		    }
+		}
 }

@@ -225,10 +225,52 @@ public class ConsoleUI {
 
  
 	    private void deleteUser() {
- 	
+	    	 System.out.println("=== Supprimer un Utilisateur ===");
+
+	    	    System.out.print("Entrez l'ID de l'utilisateur à supprimer: ");
+	    	    int userId = scanner.nextInt();
+	    	    scanner.nextLine();  
+	    	    try {
+	    	        UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl();
+	    	        String type = utilisateurDAO.getUtilisateurType(userId);
+
+	    	        if (type == null) {
+	    	            System.out.println("Utilisateur non trouvé.");
+	    	            return;
+	    	        }
+	    	        switch (type.toLowerCase()) {
+	    	            case "etudiant":
+	    	                deleteEtudiant(userId);
+	    	                break;
+	    	            case "professeur":
+	    	                deleteProfesseur(userId);
+	    	                break;
+	    	            default:
+	    	                System.out.println("Type d'utilisateur inconnu: " + type);
+	    	        }
+	    	    } catch (SQLException e) {
+	    	        System.err.println("Erreur lors de la suppression de l'utilisateur: " + e.getMessage());
+	    	    }
 	    }
  
-	    private void displayAllUsers() {
+	    private void deleteProfesseur(int userId) {
+	    	try {
+	            ProfesseurDAO professeurDAO = new ProfesseurDAOImpl();
+	            professeurDAO.deleteProfesseur(userId);
+
+	            System.out.println("Le professeur a été supprimé avec succès.");
+	        } catch (SQLException e) {
+	            System.err.println("Erreur lors de la suppression du professeur: " + e.getMessage());
+	        }
+			
+		}
+
+		private void deleteEtudiant(int userId) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void displayAllUsers() {
  	
 	    }
 	    
