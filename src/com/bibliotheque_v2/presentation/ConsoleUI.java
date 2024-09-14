@@ -266,8 +266,14 @@ public class ConsoleUI {
 		}
 
 		private void deleteEtudiant(int userId) {
-			// TODO Auto-generated method stub
-			
+			  try {
+			        EtudiantDAO etudiantDAO = new EtudiantDAOImpl();
+			        etudiantDAO.deleteEtudiant(userId);
+		            System.out.println("L'etudiant a été supprimé avec succès.");
+
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors de la suppression de l'étudiant : " + e.getMessage());
+			    }
 		}
 
 		private void displayAllUsers() {

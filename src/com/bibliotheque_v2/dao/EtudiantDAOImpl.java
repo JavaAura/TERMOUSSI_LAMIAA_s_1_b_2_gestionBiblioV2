@@ -60,11 +60,20 @@ public class EtudiantDAOImpl implements EtudiantDAO {
     }
     
     @Override
-    public void deleteEtudiant(int id) throws SQLException {
+    public void deleteEtudiant(int etudiantId) throws SQLException {
         String sql = "DELETE FROM etudiant WHERE id = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, etudiantId);
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Étudiant avec ID " + etudiantId + " est supprimé avec succès.");
+            } else {
+                System.out.println("Aucun étudiant trouvé avec ID " + etudiantId + ".");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la suppression de l'étudiant: " + e.getMessage());
+            throw e;
         }
     }
     
