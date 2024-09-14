@@ -22,7 +22,7 @@ public class Magazine extends Document {
 	    @Override
 	    public String toString() {
 	        StringBuffer sb = new StringBuffer();
-	        sb.append("Livre [Titre=").append(getTitre())
+	        sb.append("Magazine [Titre=").append(getTitre())
 	          .append(", Auteur=").append(getAuteur())
 	          .append(", Date de publication=").append(getDatePub())
 	          .append(", Nombre de pages=").append(getNbrPages())

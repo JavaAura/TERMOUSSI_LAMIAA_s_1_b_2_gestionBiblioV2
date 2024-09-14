@@ -14,5 +14,5 @@ public interface TheseUniversitaireDAO {
 	    void deleteTheseUniversitaire(int theseID) throws SQLException;
 	    List<TheseUniversitaire> getAllThesesUniversitaires() throws SQLException;
 	    TheseUniversitaire getTheseUniversitaireById(int documentId) throws SQLException;
-
+	    
 }

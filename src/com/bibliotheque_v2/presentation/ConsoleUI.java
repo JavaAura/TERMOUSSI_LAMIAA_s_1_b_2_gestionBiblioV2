@@ -375,7 +375,18 @@ public class ConsoleUI {
 		}
 
 		private void searchJournalScientifiqueByIdUI(int documentId) {
-			// TODO Auto-generated method stub
+			  JournalScientifiqueDAO journalScientifiqueDAO = new JournalScientifiqueDAOImpl();
+			    try {
+			        JournalScientifique journalScientifique = journalScientifiqueDAO.getJournalScientifiqueById(documentId);
+			        if (journalScientifique != null) {
+			            System.out.println("Journal Scientifique trouvé:");
+			            System.out.println(journalScientifique);
+			        } else {
+			            System.out.println("Journal Scientifique non trouvé avec l'ID spécifié.");
+			        }
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors de la recherche du journal scientifique: " + e.getMessage());
+			    }
 			
 		}
 

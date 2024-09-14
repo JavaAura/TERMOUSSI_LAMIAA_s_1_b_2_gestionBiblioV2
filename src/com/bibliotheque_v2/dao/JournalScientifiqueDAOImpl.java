@@ -82,8 +82,6 @@ public class JournalScientifiqueDAOImpl implements JournalScientifiqueDAO {
 	        }
 	    }
 
-	   
-
 	    @Override
 	    public List<JournalScientifique> getAllJournauxScientifiques() throws SQLException {
 	        List<JournalScientifique> journals = new ArrayList<>();
@@ -107,4 +105,33 @@ public class JournalScientifiqueDAOImpl implements JournalScientifiqueDAO {
 	        }
 	        return journals;
 	    }
+	    
+	    @Override
+	    public JournalScientifique getJournalScientifiqueById(int documentId) throws SQLException {
+	        String sql = "SELECT * FROM journal_scientifique WHERE id = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setInt(1, documentId);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return new JournalScientifique(
+	                        rs.getString("titre"),
+	                        rs.getString("auteur"),
+	                        rs.getDate("datePub").toLocalDate(),
+	                        rs.getInt("nbrPages"),
+	                        rs.getString("type"),
+	                        rs.getInt("bibliotheque_id"),
+	                        rs.getObject("borrower_id", Integer.class),
+	                        rs.getObject("reserver_id", Integer.class),
+	                        rs.getString("domaine_recherche")  
+	                    );
+	                } else {
+	                    return null; 
+	                }
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error retrieving scientific journal with ID " + documentId + ": " + e.getMessage());
+	            throw e;
+	        }
+	    }
+
 }
