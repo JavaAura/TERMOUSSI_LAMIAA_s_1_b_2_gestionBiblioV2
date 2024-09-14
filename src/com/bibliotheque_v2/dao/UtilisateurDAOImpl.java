@@ -30,5 +30,39 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	        }
 	    }
 	    
+	    @Override
+	    public String getUserTypeByEmail(String email) throws SQLException {
+	        String sql = "SELECT type FROM utilisateur WHERE email = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setString(1, email);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getString("type"); 
+	                } else {
+	                    return null; 
+	                }
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error retrieving user type by email: " + e.getMessage());
+	            throw e;
+	        }
+	    }
 	
+	    @Override
+	    public int getCurrentUserId(String email) throws SQLException {
+	        String sql = "SELECT id FROM utilisateur WHERE email = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setString(1, email);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt("id");
+	                } else {
+	                    return -1;
+	                }
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error retrieving user ID by email: " + e.getMessage());
+	            throw e;
+	        }
+	    }
 }

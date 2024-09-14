@@ -35,7 +35,7 @@ CREATE TABLE professeur (
 
 CREATE TABLE document (
     id SERIAL PRIMARY KEY,
-titre VARCHAR(255) NOT NULL, 
+titre VARCHAR(255) NOT NULL, //Todo :unique
     auteur VARCHAR(255) NOT NULL, 
     datePub DATE NOT NULL, 
    nbrPages INT,           

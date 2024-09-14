@@ -36,33 +36,77 @@ public class ConsoleUI {
 	        boolean running = true;
 
 	        while (running) {
-	            System.out.println("~~~~ Menu Principal ~~~~");
-	            System.out.println("1. Gestion des documents");
-	            System.out.println("2. Gestion des utilisateurs");
-	            System.out.println("3. Gestion des emprunts");
-	            System.out.println("4. Gestion des réservations");
-	            System.out.println("5. Quitter");
-	            System.out.print("Choisissez une option: ");
+	            System.out.print("Entrez votre email: ");
+	            String email = scanner.nextLine();
 
+	            UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); 
+
+	            String userType = null;
+	            try {
+	                userType = utilisateurDAO.getUserTypeByEmail(email); 
+	            } catch (SQLException e) {
+	                System.err.println("Erreur lors de l'accès aux informations utilisateur: " + e.getMessage());
+	                continue; 
+	            }
+
+	            if (userType == null) {
+	                System.out.println("Utilisateur non trouvé.");
+	                continue;
+	            }
+
+	            System.out.println("~~~~ Menu Principal ~~~~");
+
+	            if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
+	                System.out.println("1.Emprunter un document");
+	                System.out.println("2. Retourner un document");
+	                System.out.println("3. Reserver un document");
+	                System.out.println("4. Annuler reservation d'un document");
+	                System.out.println("5. Quitter");
+	            } else if (userType.equalsIgnoreCase("admin")) {
+	                System.out.println("1. Gestion des documents");
+	                System.out.println("2. Gestion des utilisateurs");
+	                System.out.println("3. Gestion des emprunts");
+	                System.out.println("4. Gestion des réservations");
+	                System.out.println("5. Quitter");
+	            } else {
+	                System.out.println("Type d'utilisateur inconnu.");
+	                continue;
+	            }
+
+	            System.out.print("Choisissez une option: ");
 	            int choice = scanner.nextInt();
 	            scanner.nextLine(); 
 
 	            switch (choice) {
 	                case 1:
-	                    manageDocuments();
+	                    if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
+	                      borrowUI(email);
+	                    } else if (userType.equalsIgnoreCase("admin")) {
+		                    manageDocuments();	                    }
 	                    break;
 	                case 2:
-	                    manageUsers();
+	                    if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
+	                    	reservUI();
+	                    } else if (userType.equalsIgnoreCase("admin")) {
+	                    	  manageUsers();
+	                    }
 	                    break;
 	                case 3:
-	                    manageborrows();
+	                    if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
+	                        running = false;
+	                    } else if (userType.equalsIgnoreCase("admin")) {
+	                    	   manageborrows();
+	                    }
 	                    break;
 	                case 4:
-	                    manageReservations();
+	                    if (userType.equalsIgnoreCase("admin")) {
+	                        manageReservations();
+	                    }
 	                    break;
 	                case 5:
-	                    running = false;
-	                    System.out.println("Merci d'avoir utilisé le système de gestion de bibliothèque.");
+	                    if (userType.equalsIgnoreCase("admin")) {
+	                        running = false;
+	                    }
 	                    break;
 	                default:
 	                    System.out.println("Option invalide. Veuillez réessayer.");
@@ -70,7 +114,50 @@ public class ConsoleUI {
 	        }
 	    }
 	    
-	    private void manageUsers() {
+	    private void reservUI() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void borrowUI(String email) {
+			System.out.print("Entrez le titre du document que vous souhaitez emprunter: ");
+		    String documentTitle = scanner.nextLine();
+	
+		    DocumentDAO documentDAO = new DocumentDAOImpl(); 
+		    UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); 
+		    try {
+		        int userId = utilisateurDAO.getCurrentUserId(email); 
+		        Integer docID = documentDAO.getDocumentByTitle(documentTitle);
+		       /* if (document instanceof Magazine) {
+		            Magazine magazine = (Magazine) document;
+		        } else if (document instanceof Livre) {
+		            Livre livre = (Livre) document;
+		        } else if (document instanceof TheseUniversitaire) {
+		            TheseUniversitaire these = (TheseUniversitaire) document;
+		        } else if (document instanceof JournalScientifique)  {
+		        	JournalScientifique journal = (JournalScientifique) document;
+		        }else {
+		            System.out.println("Document inconnu.");
+		        }*/
+		        
+		        if (docID == null) {
+		            System.out.println("Document non trouvé avec le titre spécifié.");
+		            return;
+		        }
+		        
+		     /*   if (document.getBorrowerId() != null) {
+		            System.out.println("Le document est déjà emprunté.");
+		            return;
+		        }*/
+		        documentDAO.updateBorrowerId(docID, userId);
+		        System.out.println("Document emprunté avec succès.");
+		    } catch (SQLException e) {
+		        System.err.println("Erreur lors de l'emprunt du document: " + e.getMessage());
+		    }
+			
+		}
+
+		private void manageUsers() {
 	        System.out.println("~~~~ Gestion des Utilisateurs ~~~~");
 	        System.out.println("1. Ajouter un utilisateur");
 	        System.out.println("2. Mettre à jour un utilisateur");
