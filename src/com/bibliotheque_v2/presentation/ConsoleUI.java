@@ -93,7 +93,7 @@ public class ConsoleUI {
 	                    break;
 	                case 3:
 	                    if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
-	                        running = false;
+	                        reservDocUI(email);
 	                    } else if (userType.equalsIgnoreCase("admin")) {
 	                    	   manageborrows();
 	                    }
@@ -115,6 +115,27 @@ public class ConsoleUI {
 	    }
 	    
 	 
+
+		private void reservDocUI(String email) {
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl();
+		    DocumentDAO documentDAO = new DocumentDAOImpl();
+		    try {
+		        int userId = utilisateurDAO.getCurrentUserId(email);
+		        System.out.print("Entrez le titre du document que vous souhaitez réserver: ");
+		        String documentTitle = scanner.nextLine();
+
+		        Integer docID= documentDAO.getDocumentIDByTitle(documentTitle);
+
+		        if (docID == null) {
+		            System.out.println("Document non trouvé.");
+		            return;
+		        }
+		            documentDAO.updateReserverId(docID, userId);
+		            System.out.println("Document reservé avec succès.");
+		    } catch (SQLException e) {
+		        System.err.println("Erreur lors de la réservation du document: " + e.getMessage());
+		    }
+		}
 
 		private void retournerDocUI(String email) {
 			 UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); 

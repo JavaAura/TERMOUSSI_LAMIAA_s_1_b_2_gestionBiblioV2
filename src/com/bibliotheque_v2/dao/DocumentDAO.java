@@ -10,4 +10,5 @@ public interface DocumentDAO {
     Integer getDocumentIDByTitle(String title) throws SQLException;
     void updateBorrowerId(int documentId, int borrowerId) throws SQLException;
     void updateBorrowerIdNull(int documentId,int userID) throws SQLException;
+    void updateReserverId (int documentId,int reserverID) throws SQLException;
 }
