@@ -65,9 +65,7 @@ public class ConsoleUI {
 	            } else if (userType.equalsIgnoreCase("admin")) {
 	                System.out.println("1. Gestion des documents");
 	                System.out.println("2. Gestion des utilisateurs");
-	                System.out.println("3. Gestion des emprunts");
-	                System.out.println("4. Gestion des réservations");
-	                System.out.println("5. Quitter");
+	                System.out.println("3. Quitter");
 	            } else {
 	                System.out.println("Type d'utilisateur inconnu.");
 	                continue;
@@ -95,18 +93,15 @@ public class ConsoleUI {
 	                    if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
 	                        reservDocUI(email);
 	                    } else if (userType.equalsIgnoreCase("admin")) {
-	                    	   manageborrows();
-	                    }
+	                    	running = false;	                    }
 	                    break;
 	                case 4:
 	                	  if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
 		                        annulReservDocUI(email);
-		                    } else if (userType.equalsIgnoreCase("admin")) {
-		                    	 manageReservations();
-		                    }
+	                	  }
 	                    break;
 	                case 5:
-	                    if (userType.equalsIgnoreCase("admin")) {
+	                	 if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
 	                        running = false;
 	                    }
 	                    break;
@@ -915,29 +910,5 @@ public class ConsoleUI {
 	  
 	   
 
-	    private void manageborrows() {
-	        System.out.println("~~~~ Gestion des Emprunts ~~~~");
-	        System.out.println("1. Emprunter un document");
-	        System.out.println("2. Retourner un document");
-	        System.out.println("3. Retour au menu principal");
-	        System.out.print("Choisissez une option: ");
-
-	        int choice = scanner.nextInt();
-	        scanner.nextLine();  
-
-	        // TODO:  la gestion des emprunts
-	    }
 	    
-	    private void manageReservations() {
-	        System.out.println("~~~~ Gestion des Réservations ~~~~");
-	        System.out.println("1. Réserver un document");
-	        System.out.println("2. Annuler une réservation");
-	        System.out.println("3. Retour au menu principal");
-	        System.out.print("Choisissez une option: ");
-
-	        int choice = scanner.nextInt();
-	        scanner.nextLine();  
-
-	        // TODO:  la gestion des réservations
-	    }
 }
