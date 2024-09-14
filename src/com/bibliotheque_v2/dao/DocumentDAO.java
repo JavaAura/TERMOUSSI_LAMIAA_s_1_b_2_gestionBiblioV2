@@ -11,4 +11,5 @@ public interface DocumentDAO {
     void updateBorrowerId(int documentId, int borrowerId) throws SQLException;
     void updateBorrowerIdNull(int documentId,int userID) throws SQLException;
     void updateReserverId (int documentId,int reserverID) throws SQLException;
+    void updateReserverIdNull (int documentId,int reserverID) throws SQLException;
 }

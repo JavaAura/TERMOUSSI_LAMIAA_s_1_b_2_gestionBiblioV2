@@ -87,6 +87,24 @@ public class DocumentDAOImpl implements DocumentDAO{
 	            throw e;
 	        }
 	    }
+	    
+	    @Override
+	    public void updateReserverIdNull (int documentId,int reserverID) throws SQLException{
+	    	String sql = "UPDATE document SET reserver_id = ? WHERE id = ? AND reserver_id =?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        	 stmt.setNull(1, java.sql.Types.INTEGER); 
+	            stmt.setInt(2, documentId);
+	            stmt.setInt(3, reserverID);
+	            int rowsAffected = stmt.executeUpdate();
+	            if (rowsAffected == 0) {
+	                throw new SQLException("Either no document found with ID: " + documentId + " or the document is already reserved or you are not the reserver !");
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error updating reserver ID for document with ID " + documentId + ": " + e.getMessage());
+	            throw e;
+	        }
+	    }
+	    
 	    @Override
 	    public void updateBorrowerId(int documentId, int borrowerId) throws SQLException {
 	        String sql = "UPDATE document SET borrower_id = ? WHERE id = ? AND borrower_id IS NULL";

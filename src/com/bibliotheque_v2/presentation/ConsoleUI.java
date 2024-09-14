@@ -99,9 +99,11 @@ public class ConsoleUI {
 	                    }
 	                    break;
 	                case 4:
-	                    if (userType.equalsIgnoreCase("admin")) {
-	                        manageReservations();
-	                    }
+	                	  if (userType.equalsIgnoreCase("professeur") || userType.equalsIgnoreCase("etudiant")) {
+		                        annulReservDocUI(email);
+		                    } else if (userType.equalsIgnoreCase("admin")) {
+		                    	 manageReservations();
+		                    }
 	                    break;
 	                case 5:
 	                    if (userType.equalsIgnoreCase("admin")) {
@@ -115,6 +117,29 @@ public class ConsoleUI {
 	    }
 	    
 	 
+
+		private void annulReservDocUI(String email) {
+			 UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl(); 
+			    DocumentDAO documentDAO = new DocumentDAOImpl(); 
+
+			 try {
+			        int userId = utilisateurDAO.getCurrentUserId(email); 
+			        System.out.print("Entrez le titre du document que vous souhaitez annuler reservation: ");
+			        String documentTitle = scanner.nextLine();
+
+			       Integer docID= documentDAO.getDocumentIDByTitle(documentTitle);
+
+			        if (docID == null) {
+			            System.out.println("Document non trouvé.");
+			            return;
+			        }
+			            documentDAO.updateReserverIdNull(docID,userId);
+			            System.out.println("Reservation annulée avec succès.");
+			    } catch (SQLException e) {
+			        System.err.println("Erreur lors du retour du document: " + e.getMessage());
+			    } 
+			
+		}
 
 		private void reservDocUI(String email) {
 			UtilisateurDAO utilisateurDAO = new UtilisateurDAOImpl();
